@@ -1,0 +1,37 @@
+export BBlack="\[\033[1;90m\]"       # Black
+export BRed="\[\033[1;91m\]"         # Red
+export BGreen="\[\033[1;92m\]"       # Green
+export BYellow="\[\033[1;93m\]"      # Yellow
+export BBlue="\[\033[1;94m\]"        # Blue
+export BPurple="\[\033[1;95m\]"      # Purple
+export BCyan="\[\033[1;96m\]"        # Cyan
+export BWhite="\[\033[1;97m\]"       # White
+
+export UBlack="\[\033[4;90m\]"       # Black
+export URed="\[\033[4;91m\]"         # Red
+export UGreen="\[\033[4;92m\]"       # Green
+export UYellow="\[\033[4;93m\]"      # Yellow
+export UBlue="\[\033[4;94m\]"        # Blue
+export UPurple="\[\033[4;95m\]"      # Purple
+export UCyan="\[\033[4;96m\]"        # Cyan
+export UWhite="\[\033[4;97m\]"       # White
+export CReset="\[\033[0m\]"
+
+export black="\033[1;90m"       # Black
+export red="\033[1;91m"         # Red
+export green="\033[1;92m"       # Green
+export yellow="\033[1;93m"      # Yellow
+export blue="\033[1;94m"        # Blue
+export purple="\033[1;95m"      # Purple
+export cyan="\033[1;96m"        # Cyan
+export white="\033[1;97m"       # White
+
+export ublack="\033[4;90m"       # Black
+export ured="\033[4;91m"         # Red
+export ugreen="\033[4;92m"       # Green
+export uyellow="\033[4;93m"      # Yellow
+export ublue="\033[4;94m"        # Blue
+export upurple="\033[4;95m"      # Purple
+export ucyan="\033[4;96m"        # Cyan
+export uwhite="\033[4;97m"       # White
+export creset="\033[0m"

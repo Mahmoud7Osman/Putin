@@ -1,0 +1,13 @@
+export OLD_PATH=$PATH
+export OLD_PS1=$PS1
+
+export PROJECT="-"
+export AP="-"
+export ACTIVE_PROJECT='$(printf "$AP")'
+
+export PATH=$PATH:$(pwd)/bin
+export PS1="[$UCyan\T$CReset]:$BWhite\w$CReset:($BRed$ACTIVE_PROJECT$CReset) > "
+export PUTIN=$(pwd)
+export PLUGINS=$PUTIN/plugins/
+
+export PTNB="UNSTABLE P122"

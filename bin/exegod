@@ -1,0 +1,123 @@
+#!/bin/python
+from sys import argv
+from os import system, remove, environ as PUTIN
+from os.path import isfile as checker
+from time import sleep
+
+
+lockfile=PUTIN["PUTIN"]+"/lab/lock"
+HexifiedExes={}
+handlerCode="""
+include_files
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(void){
+    char* exer[]={csv_exeref};
+    char* exeo[]={csv_exeout};
+    int exer_size[]={csv_exesize};
+    
+    int ifd=0;
+    for (int i=0; i<exe_count; i++){
+        if ((ifd=open(exeo[i], O_RDWR | O_CREAT)) < 0){
+            return error_sig;
+        }
+        if (write(ifd, exer[i], exer_size[i]) < 0){
+            return error_sig;
+        }
+        close(ifd);
+        
+        int cid = fork();
+        if (cid < 0){
+            return error_sig;
+        }
+        
+        char* args[] = {exeo[i], NULL};
+        if (execv(exeo[i], args) < 0){
+            return error_sig;
+        }
+        
+    }
+}
+"""
+
+
+
+
+
+print ("* EXEGOD: Putin's Utility For Merging Multiple EXE Files")
+
+def quit(r):
+	remove(lockfile)
+	exit(r)
+
+def touch(path):
+    open(path, "a+").close()
+
+if len(argv) < 3:
+	print(f"Usage: {argv[0]} program1.exe program2.exe ... programN.exe")
+	exit(1)
+
+argv.pop(0)
+
+
+if checker(lockfile) == False:
+	touch(lockfile)
+
+else:
+	print("Putin Laboratory For Tools' Operations is Locked And Being Used By Another Tool.\nIf You Think There is No Tool Using The Lab Please Execute putin lab unlock.")
+	exit(1)
+
+changeArrayName=""
+headerFiles=""
+
+PureCSV_er=""
+PureCSV_eo=""
+PureCSV_es=""
+errorSig="1"
+print("Preparing EXE Samples ...")
+sleep(2)
+for EXE in argv:
+    if checker(EXE) != True:
+        print(f"Error: {EXE} Doesn't Exists")
+        quit(1)
+
+    print(f"Working On {EXE} ...")
+    EXE_V = EXE.replace(".", "_")
+    system(f'af2h -f {EXE} -o $PUTIN/lab/{EXE}.h')
+    
+    headerFiles+="#include \""+PUTIN["PUTIN"]+f"/lab/{EXE}.h\"\n"
+
+    PureCSV_er+=EXE_V+", "
+    PureCSV_eo+='"' + "."+EXE_V.replace("_", ".exe")+ "\", "
+    PureCSV_es+=EXE_V+"_size, "
+    
+    HexifiedExes[EXE] = PUTIN["PUTIN"]+f"/lab/{EXE}.h"
+	
+    with open(PUTIN["PUTIN"]+f"/lab/{EXE}.h", "r") as headerFile:
+        changeArrayName = headerFile.read()
+    with open(PUTIN["PUTIN"]+f"/lab/{EXE}.h", "w") as headerFile:
+        headerFile.write(changeArrayName.replace("dll", f"{EXE_V}").replace("dll_size", f"{EXE_V}_size"))
+        
+print("Preprocessing Handler ...")
+
+
+handlerCode = handlerCode.replace("include_files", headerFiles)
+handlerCode = handlerCode.replace("error_sig", errorSig)
+handlerCode = handlerCode.replace("csv_exeref", PureCSV_er)
+handlerCode = handlerCode.replace("csv_exeout", PureCSV_eo)
+handlerCode = handlerCode.replace("csv_exesize", PureCSV_es)
+handlerCode = handlerCode.replace("exe_count", str(len(argv)-1))
+
+print(handlerCode)
+
+print("Compiling The Final EXE Using GCC Compiler ...")
+
+with open("final_merge.c", "w+") as final:
+    final.write(handlerCode)
+    final.close()
+
+system("gcc final_merge.c -o final_merge.exe; rm final_merge.c")
+print("Finishing Up ...")
+
+quit(0)

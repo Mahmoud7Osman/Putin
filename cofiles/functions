@@ -1,0 +1,15 @@
+error(){
+	printf "${red}ERROR${creset}: $1\n"
+}
+
+usage(){
+	printf "${yellow}USAGE:${creset} $1\n"
+}
+
+say(){
+	printf "${green}PUTIN:${creset} $1\n"
+}
+
+caution(){
+	printf "${red}CAUTION:${creset} $1\n"
+}

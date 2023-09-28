@@ -1,0 +1,4 @@
+printf "${green}PUTIN - V1.0 $PTNB${creset}\n\n"
+printf "   * ${cyan}Execute$creset ${uyellow}putin help$creset To Get Started\n"
+printf "   * ${cyan}Execute$creset ${uyellow}putin list commands$creset To List All Available Commands And Tools\n"
+printf "   * ${cyan}Execute$creset ${uyellow}Any Command$creset To Learn It's Usage\n\n"

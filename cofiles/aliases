@@ -1,0 +1,6 @@
+alias bye="PATH=\$OLD_PATH; PS1=\$OLD_PS1"
+alias deactivate=bye
+alias leave=bye
+alias stop=bye
+alias quit=bye
+alias clear="clear;bash $PUTIN/cofiles/logo"
